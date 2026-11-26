@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>沪教四上英语成长屋 · 4A English Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- 顶部导航栏 -->
+    <header class="topbar">
+      <div class="brand" id="btnHome" role="button" tabindex="0">
+        <div class="brand-logo">📚</div>
+        <div>
+          <h1 class="brand-title">沪教四上英语成长屋</h1>
+          <p class="brand-sub">五·四学制 4A · 词 · 语 · 说 · 写 全能成长</p>
+        </div>
+      </div>
+
+      <nav class="topnav">
+        <button class="nav-pill active" data-view="map" id="navMap">🗺️ 成长地图</button>
+        <button class="nav-pill" data-view="mistakes" id="navMistakes">
+          👾 错题消灭站 <span class="badge" id="mistakeBadge" style="display:none">0</span>
+        </button>
+        <button class="nav-pill" data-view="gallery" id="navGallery">
+          🎨 我的作品墙 <span class="badge badge-soft" id="galleryBadge">0</span>
+        </button>
+        <button class="nav-pill nav-parent" data-view="parent" id="navParent">📊 家长小报告</button>
+      </nav>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="main-content" id="mainContent">
+      <!-- 动态渲染：首页成长地图 / 单元学习工作台 / 错题消灭站 / 作品墙 / 家长小报告 -->
+    </main>
+  </div>
+
+  <!-- 轻提示 Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 手账导出隐藏画布 -->
+  <canvas id="cardCanvas" width="900" height="1120" style="display:none"></canvas>
+
+  <!-- 按顺序加载数据与模块（兼容 file:// 双击直接打开与 http:// 服务运行） -->
+  <script src="data/units_1_5.js"></script>
+  <script src="data/units_6_10.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
