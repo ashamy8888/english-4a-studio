@@ -1,0 +1,32 @@
+.gitignore
+  h_7485d290701e5b 1-3
+README.md
+  h_7485d290701e5b 1-22
+data/units_1_5.js
+  h_7485d290701e5b 1-642
+data/units_6_10.js
+  h_7485d290701e5b 1-641
+index.html
+  h_7485d290701e5b 1-52
+js/app.js
+  h_7485d290701e5b 1-1499
+js/speech.js
+  h_7485d290701e5b 1-117
+js/store.js
+  h_7485d290701e5b 1-176
+server.js
+  h_7485d290701e5b 1-39
+styles.css
+  h_7485d290701e5b 1-1016
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a98124db742361154c79ecf568cbd8b2deda7526",
+  "prompts": {},
+  "humans": {
+    "h_7485d290701e5b": {
+      "author": "ong <ong@amy.com>"
+    }
+  }
+}
