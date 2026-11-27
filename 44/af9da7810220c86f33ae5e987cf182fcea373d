@@ -1,0 +1,20 @@
+data/phonics_ipa.js
+  h_7485d290701e5b 1-134
+index.html
+  h_7485d290701e5b 48
+js/app.js
+  h_7485d290701e5b 341,343,350,353,355,368,483-487,551,554
+styles.css
+  h_7485d290701e5b 545-604
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "44af9da7810220c86f33ae5e987cf182fcea373d",
+  "prompts": {},
+  "humans": {
+    "h_7485d290701e5b": {
+      "author": "ong <ong@amy.com>"
+    }
+  }
+}
