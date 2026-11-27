@@ -338,18 +338,21 @@
     let bodyHtml = "";
 
     if (AppState.wordMode === "card") {
+      const pInfo = (window.ENGLISH_4A_PHONICS && window.ENGLISH_4A_PHONICS[w.word]) || null;
       const sylHtml = w.syllables
-        .map((syl, i) => `<span class="syl-chip syl-${i % 5}">${escapeHtml(syl)}</span>`)
+        .map((syl, i) => `<button type="button" class="syl-chip syl-${i % 5}" data-speak-syl="${escapeHtml(syl)}" title="点击点读该音节">${escapeHtml(syl)}</button>`)
         .join(`<span style="color:#94A3B8;font-weight:700">·</span>`);
 
       bodyHtml = `
         <div class="word-stage">
           <div class="flashcard">
             <div style="font-size:13px;color:#64748B;margin-bottom:10px">
-              第 ${idx + 1} / ${total} 词 ${isMastered ? `<span style="color:#10B981;font-weight:800">· ✅ 已掌握</span>` : ""}
+              第 ${idx + 1} / ${total} 词 ${isMastered ? `<span style="color:#10B981;font-weight:800">· ✅ 已掌握</span>` : ""} · <span style="color:#3B82F6">点音节块可单独听读</span>
             </div>
             <div class="syllable-row">${sylHtml}</div>
+            ${pInfo && pInfo.ipa ? `<div class="ipa-row" id="btnSpeakIpa" title="点击听标准发音"><span>${escapeHtml(pInfo.ipa)}</span><span style="font-size:14px">🔊</span></div>` : ""}
             <div class="word-cn-row"><span class="word-pos">${escapeHtml(w.pos)}</span>${escapeHtml(w.cn)}</div>
+            ${pInfo && pInfo.phonics ? `<div class="phonics-box"><span class="phonics-tag">自然拼读</span><span>${escapeHtml(pInfo.phonics)}</span></div>` : ""}
             <div class="audio-controls">
               <button class="btn btn-primary" id="btnSpeakNormal">🔊 标准朗读</button>
               <button class="btn btn-soft" id="btnSpeakSlow">🐢 慢速跟读 (0.75x)</button>
@@ -362,7 +365,7 @@
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center">
             <button class="btn btn-soft" id="prevWordBtn">← 上一个</button>
-            <span style="font-size:13px;color:#64748B">提示：学会后切换到「拼图补全」或「真听写」检验记忆！</span>
+            <span style="font-size:13px;color:#64748B">提示：看懂音标与自然拼读后，切换到「拼图补全」或「真听写」检验！</span>
             <button class="btn btn-primary" id="nextWordBtn">下一个 →</button>
           </div>
         </div>
@@ -477,6 +480,11 @@
     });
 
     if (AppState.wordMode === "card") {
+      panel.querySelectorAll("[data-speak-syl]").forEach(btn => {
+        btn.addEventListener("click", () => window.Speech4A.speak(btn.dataset.speakSyl, 0.78));
+      });
+      const ipaBtn = document.getElementById("btnSpeakIpa");
+      if (ipaBtn) ipaBtn.addEventListener("click", () => window.Speech4A.speak(w.word, 0.85));
       document.getElementById("btnSpeakNormal").addEventListener("click", () => window.Speech4A.speak(w.word, 0.92));
       document.getElementById("btnSpeakSlow").addEventListener("click", () => window.Speech4A.speak(w.word, 0.72));
       document.getElementById("btnSpeakExample").addEventListener("click", () => window.Speech4A.speak(w.example, 0.9));
@@ -540,9 +548,10 @@
       document.getElementById("btnDictNormal").addEventListener("click", () => window.Speech4A.speak(w.word, 0.9));
       document.getElementById("btnDictSlow").addEventListener("click", () => window.Speech4A.speak(w.word, 0.72));
       document.getElementById("btnShowHintDict").addEventListener("click", () => {
+        const pInfo = (window.ENGLISH_4A_PHONICS && window.ENGLISH_4A_PHONICS[w.word]) || null;
         AppState.wordFeedback = {
           ok: true,
-          msg: `💡 音节提示：${w.syllables.map(s => s[0] + "_".repeat(Math.max(0, s.length - 1))).join(" · ")}`
+          msg: `💡 音节提示：${w.syllables.map(s => s[0] + "_".repeat(Math.max(0, s.length - 1))).join(" · ")}${pInfo ? ` ｜ ${pInfo.ipa} ｜ ${pInfo.phonics}` : ""}`
         };
         renderWordsModule(panel, unit);
       });
